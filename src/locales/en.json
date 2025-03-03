@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "concept": "Concept",
+    "about": "About",
+    "partners": "Partners",
+    "contacts": "Contacts"
+  },
+  "hero": {
+    "welcome": "Your Home Away From Home",
+    "subtitle": "Experience the perfect blend of comfort and adventure in our modern hostel",
+    "bookNow": "Book Now"
+  },
+  "concept": {
+    "title": "Our Concept",
+    "subtitle": "Experience the perfect blend of community, comfort, and culture in our unique hostel environment",
+    "community": {
+      "title": "Community",
+      "description": "Join a vibrant community of travelers from around the world"
+    },
+    "comfort": {
+      "title": "Comfort",
+      "description": "Enjoy modern amenities and cozy spaces designed for your comfort"
+    },
+    "culture": {
+      "title": "Culture",
+      "description": "Immerse yourself in local culture and authentic experiences"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Welcome to Unight Hostel, where comfort meets adventure. We've created a space that feels like home while offering unique experiences that make your stay memorable.",
+    "features": {
+      "location": {
+        "title": "Prime Location",
+        "description": "Located in the heart of the city"
+      },
+      "rooms": {
+        "title": "Cozy Rooms",
+        "description": "Comfortable and clean accommodation"
+      },
+      "facilities": {
+        "title": "Modern Facilities",
+        "description": "All amenities you need"
+      },
+      "security": {
+        "title": "24/7 Security",
+        "description": "Safe and secure environment"
+      },
+      "community": {
+        "title": "Community",
+        "description": "Meet travelers from around the world"
+      },
+      "events": {
+        "title": "Regular Events",
+        "description": "Fun activities and social gatherings"
+      }
+    }
+  },
+  "partners": {
+    "title": "Our Partners",
+    "description": "We work with the best to provide you with exceptional service and experiences",
+    "becomePartner": "Become a Partner"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "info": "Get in Touch",
+    "address": {
+      "label": "Address",
+      "value": "123 Hostel Street, City, Country"
+    },
+    "email": {
+      "label": "Email",
+      "value": "info@unighthostel.com"
+    },
+    "phone": {
+      "label": "Phone",
+      "value": "+1 234 567 890"
+    },
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message",
+      "send": "Send Message"
+    }
+  },
+  "themes": {
+    "default": "Default",
+    "olive": "Olive",
+    "terracotta": "Terracotta",
+    "switchTheme": "Switch theme"
+  },
+  "languages": {
+    "en": "English",
+    "mne": "Montenegrin",
+    "switchLanguage": "Switch language"
+  },
+  "logo": {
+    "name": "IGHT",
+    "hostel": "HOSTEL",
+    "fullName": "Unight Hostel"
+  }
+} 
