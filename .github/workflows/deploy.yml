@@ -1,0 +1,47 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # Переходим в директорию проекта
+            cd /var/www/unight
+
+            # Получаем последние изменения
+            git pull origin main
+
+            # Устанавливаем зависимости и собираем проект
+            npm install
+            npm run build
+
+            # Перезапускаем приложение через PM2
+            pm2 restart unight || pm2 start npm --name "unight" -- start
+
+            # Перезагружаем Nginx
+            sudo systemctl reload nginx 
