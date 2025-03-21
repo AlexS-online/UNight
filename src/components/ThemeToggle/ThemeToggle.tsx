@@ -11,59 +11,47 @@ const ThemeToggle: React.FC = () => {
   const { t } = useLanguage();
 
   const toggleTheme = () => {
-    console.log('Current theme:', theme);
-    const themes: Array<'default' | 'olive' | 'terracotta'> = ['default', 'olive', 'terracotta'];
+    const themes: Array<'default' | 'terracotta' | 'dark'> = ['default', 'terracotta', 'dark'];
     const currentIndex = themes.indexOf(theme);
     const nextIndex = (currentIndex + 1) % themes.length;
-    const newTheme = themes[nextIndex];
-    console.log('Switching to theme:', newTheme);
-    setTheme(newTheme);
+    setTheme(themes[nextIndex]);
   };
 
-  const buttonColors = {
+  const themeColors = {
     default: {
-      bg: colors.default.primary.main,
-      text: colors.default.text.light,
-      hover: colors.default.primary.light,
-    },
-    olive: {
-      bg: colors.olive.primary.main,
-      text: colors.olive.text.light,
-      hover: colors.olive.primary.light,
+      bg: 'rgba(0, 0, 255, 0.1)',
+      dot: '#0000FF',
     },
     terracotta: {
-      bg: colors.terracotta.primary.main,
-      text: colors.terracotta.text.light,
-      hover: colors.terracotta.primary.light,
-    }
-  };
-
-  const themeIcons = {
-    default: '🏠',
-    olive: '🌿',
-    terracotta: '🌅'
+      bg: 'rgba(208, 90, 69, 0.1)',
+      dot: '#D05A45',
+    },
+    dark: {
+      bg: 'rgba(208, 90, 69, 0.1)',
+      dot: '#D05A45',
+    },
   };
 
   return (
     <motion.button
       onClick={toggleTheme}
-      className="p-2 rounded-full transition-all duration-300"
-      style={{
-        backgroundColor: buttonColors[theme].bg,
-        color: buttonColors[theme].text,
-        width: '36px',
-        height: '36px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-      whileHover={{
-        backgroundColor: buttonColors[theme].hover,
-      }}
+      className="w-8 h-8 flex items-center justify-center"
+      whileTap={{ scale: 0.95 }}
       aria-label={t('themes.switchTheme')}
       title={t(`themes.${theme}`)}
     >
-      {themeIcons[theme]}
+      <div
+        className="w-4 h-4 rounded-full"
+        style={{
+          border: `1px solid ${themeColors[theme].dot}`,
+          backgroundColor: themeColors[theme].bg,
+        }}
+      >
+        <div
+          className="w-2 h-2 rounded-full m-0.5"
+          style={{ backgroundColor: themeColors[theme].dot }}
+        />
+      </div>
     </motion.button>
   );
 };

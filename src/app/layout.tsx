@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/context/LanguageContext'
 import { ThemeProvider } from '@/context/ThemeContext'
+import ThemeAwareContent from '@/components/ThemeAwareContent/ThemeAwareContent'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,9 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <div className="background-pattern" />
         <LanguageProvider>
           <ThemeProvider>
-            {children}
+            <ThemeAwareContent>
+              {children}
+            </ThemeAwareContent>
           </ThemeProvider>
         </LanguageProvider>
       </body>

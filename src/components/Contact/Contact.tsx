@@ -26,30 +26,28 @@ const Contact: React.FC = () => {
         border: colors.default.text.secondary,
         focus: colors.default.primary.main,
         bg: colors.default.background.main,
-      },
-      decorative: colors.default.accent.main + '20',
+      }
     },
-    olive: {
-      bg: colors.olive.background.main,
-      title: colors.olive.primary.dark,
-      text: colors.olive.text.secondary,
-      cardBg: colors.olive.background.light,
-      icon: colors.olive.accent.main,
+    dark: {
+      bg: colors.dark.background.main,
+      title: colors.dark.primary.main,
+      text: colors.dark.text.secondary,
+      cardBg: colors.dark.background.light,
+      icon: colors.dark.accent.main,
       button: {
-        bg: colors.olive.primary.main,
-        text: colors.olive.text.light,
-        hover: colors.olive.primary.light,
+        bg: colors.dark.primary.main,
+        text: colors.dark.text.light,
+        hover: colors.dark.primary.light,
       },
       input: {
-        border: colors.olive.text.secondary,
-        focus: colors.olive.primary.dark,
-        bg: colors.olive.background.main,
-      },
-      decorative: colors.olive.accent.main + '20',
+        border: colors.dark.text.secondary,
+        focus: colors.dark.primary.main,
+        bg: colors.dark.background.main,
+      }
     },
     terracotta: {
       bg: colors.terracotta.background.main,
-      title: colors.terracotta.primary.dark,
+      title: colors.terracotta.primary.main,
       text: colors.terracotta.text.secondary,
       cardBg: colors.terracotta.background.light,
       icon: colors.terracotta.accent.main,
@@ -60,10 +58,9 @@ const Contact: React.FC = () => {
       },
       input: {
         border: colors.terracotta.text.secondary,
-        focus: colors.terracotta.primary.dark,
+        focus: colors.terracotta.primary.main,
         bg: colors.terracotta.background.main,
-      },
-      decorative: colors.terracotta.accent.main + '20',
+      }
     }
   };
 
@@ -91,26 +88,12 @@ const Contact: React.FC = () => {
 
   return (
     <section 
-      id="contacts" 
-      className="py-20 relative overflow-hidden"
-      style={{ backgroundColor: contactColors[theme].bg }}
+      id="contact" 
+      className="py-24 relative overflow-hidden"
+      style={{ 
+        backgroundColor: theme === 'dark' ? 'rgba(26, 26, 26, 0.9)' : contactColors[theme].bg 
+      }}
     >
-      {/* Декоративные элементы */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
-        className="absolute top-0 right-0 w-64 h-64 rounded-full -translate-y-1/2 translate-x-1/2"
-        style={{ backgroundColor: contactColors[theme].decorative }}
-      />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 0.2 }}
-        className="absolute bottom-0 left-0 w-96 h-96 rounded-full translate-y-1/2 -translate-x-1/2"
-        style={{ backgroundColor: contactColors[theme].decorative }}
-      />
-
       <div className="container mx-auto px-4 relative">
         <motion.div
           initial="hidden"
@@ -127,14 +110,100 @@ const Contact: React.FC = () => {
           </motion.h2>
           
           <div className="grid md:grid-cols-2 gap-12">
-            <motion.div variants={itemVariants}>
-              <div className="p-8 rounded-lg shadow-lg" style={{ backgroundColor: contactColors[theme].cardBg }}>
-                <h3 className="text-2xl font-semibold mb-6"
-                    style={{ color: contactColors[theme].title }}>
-                  {t('contact.info')}
-                </h3>
-                
-                <div className="space-y-4">
+            <motion.div variants={itemVariants} className="h-full">
+              <div className="p-8 rounded-lg shadow-lg bg-white/20 backdrop-blur-md border border-white/30 h-full flex flex-col">
+                <form className="mb-0 flex-grow">
+                  <div className="space-y-5">
+                    <div>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          id="name"
+                          className="peer w-full px-4 pt-6 pb-2 rounded-lg transition-all duration-300 border-0 ring-0 focus:ring-2 focus:ring-opacity-50 bg-white/10 backdrop-blur-sm focus:outline-none"
+                          style={{ 
+                            color: contactColors[theme].text,
+                            boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                          }}
+                          placeholder=" "
+                        />
+                        <label 
+                          htmlFor="name"
+                          className="absolute top-2 left-4 text-xs font-medium transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs"
+                          style={{ color: contactColors[theme].text }}
+                        >
+                          {t('contact.form.name')}
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="relative">
+                        <input
+                          type="email"
+                          id="email"
+                          className="peer w-full px-4 pt-6 pb-2 rounded-lg transition-all duration-300 border-0 ring-0 focus:ring-2 focus:ring-opacity-50 bg-white/10 backdrop-blur-sm focus:outline-none"
+                          style={{ 
+                            color: contactColors[theme].text,
+                            boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                          }}
+                          placeholder=" "
+                        />
+                        <label 
+                          htmlFor="email"
+                          className="absolute top-2 left-4 text-xs font-medium transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs"
+                          style={{ color: contactColors[theme].text }}
+                        >
+                          {t('contact.form.email')}
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="relative">
+                        <textarea
+                          id="message"
+                          rows={4}
+                          className="peer w-full px-4 pt-6 pb-2 rounded-lg transition-all duration-300 border-0 ring-0 focus:ring-2 focus:ring-opacity-50 bg-white/10 backdrop-blur-sm focus:outline-none resize-none"
+                          style={{ 
+                            color: contactColors[theme].text,
+                            boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                          }}
+                          placeholder=" "
+                        ></textarea>
+                        <label 
+                          htmlFor="message"
+                          className="absolute top-2 left-4 text-xs font-medium transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs"
+                          style={{ color: contactColors[theme].text }}
+                        >
+                          {t('contact.form.message')}
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <motion.button
+                      type="submit"
+                      className="w-full px-8 py-3 rounded-lg text-base font-medium transition-all duration-300 shadow-lg"
+                      style={{ 
+                        backgroundColor: contactColors[theme].button.bg,
+                        color: contactColors[theme].button.text,
+                        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)'
+                      }}
+                      whileHover={{ 
+                        scale: 1.02,
+                        boxShadow: '0 6px 20px rgba(0, 0, 0, 0.15)'
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {t('contact.form.send')}
+                    </motion.button>
+                  </div>
+                </form>
+              </div>
+            </motion.div>
+            
+            <motion.div variants={itemVariants} className="h-full">
+              <div className="p-8 rounded-lg shadow-lg bg-white/20 backdrop-blur-md border border-white/30 h-full flex flex-col">
+                <div className="space-y-4 flex-grow">
                   <div className="flex items-start">
                     <svg 
                       className="w-6 h-6 mr-4 mt-1" 
@@ -204,74 +273,26 @@ const Contact: React.FC = () => {
                     </div>
                   </div>
                 </div>
+                
+                <motion.div 
+                  className="mt-auto pt-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <div className="rounded-lg overflow-hidden shadow-md" style={{ height: "200px" }}>
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2951.6784947317915!2d18.865086100000003!3d42.28538590000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x134dd5003d0bb871%3A0x115f2c8646719aa7!2sU-Night%20Hostel!5e0!3m2!1sru!2s!4v1741938058836!5m2!1sru!2s"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen={true}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants}>
-              <form className="p-8 rounded-lg shadow-lg" style={{ backgroundColor: contactColors[theme].cardBg }}>
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: contactColors[theme].text }}>
-                      {t('contact.form.name')}
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-2 rounded-lg transition-all duration-300 border-2 focus:outline-none"
-                      style={{ 
-                        borderColor: contactColors[theme].input.border,
-                        color: contactColors[theme].text,
-                        backgroundColor: contactColors[theme].input.bg,
-                      }}
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: contactColors[theme].text }}>
-                      {t('contact.form.email')}
-                    </label>
-                    <input
-                      type="email"
-                      className="w-full px-4 py-2 rounded-lg transition-all duration-300 border-2 focus:outline-none"
-                      style={{ 
-                        borderColor: contactColors[theme].input.border,
-                        color: contactColors[theme].text,
-                        backgroundColor: contactColors[theme].input.bg,
-                      }}
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: contactColors[theme].text }}>
-                      {t('contact.form.message')}
-                    </label>
-                    <textarea
-                      rows={4}
-                      className="w-full px-4 py-2 rounded-lg transition-all duration-300 border-2 focus:outline-none"
-                      style={{ 
-                        borderColor: contactColors[theme].input.border,
-                        color: contactColors[theme].text,
-                        backgroundColor: contactColors[theme].input.bg,
-                      }}
-                    ></textarea>
-                  </div>
-                  
-                  <motion.button
-                    type="submit"
-                    className="w-full px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300"
-                    style={{ 
-                      backgroundColor: contactColors[theme].button.bg,
-                      color: contactColors[theme].button.text,
-                    }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      backgroundColor: contactColors[theme].button.hover,
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {t('contact.form.send')}
-                  </motion.button>
-                </div>
-              </form>
             </motion.div>
           </div>
         </motion.div>

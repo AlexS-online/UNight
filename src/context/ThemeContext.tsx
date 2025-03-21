@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type Theme = 'default' | 'olive' | 'terracotta';
+type Theme = 'default' | 'terracotta' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
@@ -16,6 +16,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     console.log('Theme changed to:', theme);
+    document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
   const updateTheme = (newTheme: Theme) => {

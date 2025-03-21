@@ -4,18 +4,18 @@ import React from 'react';
 import Header from '@/components/Header/Header';
 import Hero from '@/components/Hero/Hero';
 import Concept from '@/components/Concept/Concept';
-import About from '@/components/About/About';
-import Partners from '@/components/Partners/Partners';
+import Accommodation from '@/components/Accommodation/Accommodation';
+import AdditionalServices from '@/components/AdditionalServices/AdditionalServices';
 import Contact from '@/components/Contact/Contact';
 
 export default function Home() {
   return (
-    <main>
+    <main className="text-[14px] sm:text-base overflow-x-hidden">
       <Header />
       <Hero />
       <Concept />
-      <About />
-      <Partners />
+      <Accommodation />
+      <AdditionalServices />
       <Contact />
     </main>
   );
