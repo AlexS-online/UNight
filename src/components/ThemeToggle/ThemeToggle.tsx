@@ -23,12 +23,12 @@ const ThemeToggle: React.FC = () => {
       dot: '#0000FF',
     },
     terracotta: {
-      bg: 'rgba(208, 90, 69, 0.1)',
-      dot: '#D05A45',
+      bg: 'rgba(255, 255, 255, 0.2)',
+      dot: '#FFFFFF',
     },
     dark: {
-      bg: 'rgba(208, 90, 69, 0.1)',
-      dot: '#D05A45',
+      bg: 'rgba(42, 42, 42, 0.3)',
+      dot: '#FFFFFF',
     },
   };
 

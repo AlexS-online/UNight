@@ -34,7 +34,10 @@ const Logo: React.FC<LogoProps> = ({
           src={logoSrc}
           alt={t('logo.fullName')}
           fill
-          style={{ objectFit: 'contain' }}
+          style={{ 
+            objectFit: 'contain',
+            filter: theme === 'dark' ? 'invert(1)' : 'none'
+          }}
           priority
         />
       </div>

@@ -25,9 +25,9 @@ const LanguageToggle = () => {
       hover: 'rgba(208, 90, 69, 0.1)',
     },
     terracotta: {
-      bg: 'rgba(208, 90, 69, 0.05)',
-      text: '#D05A45',
-      hover: 'rgba(208, 90, 69, 0.1)',
+      bg: 'rgba(255, 255, 255, 0.15)',
+      text: '#FFFFFF',
+      hover: 'rgba(255, 255, 255, 0.25)',
     },
   };
 

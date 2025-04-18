@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { colors } from '@/styles/colors';
 import { useLanguage } from '@/context/LanguageContext';
@@ -14,7 +14,8 @@ const Hero: React.FC = () => {
   const { theme } = useTheme();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
-  const heroColors = {
+  // Мемоизируем цвета для предотвращения пересчета при каждом рендере
+  const heroColors = useMemo(() => ({
     default: {
       bg: colors.default.background.main,
       text: colors.default.text.primary,
@@ -30,27 +31,57 @@ const Hero: React.FC = () => {
       text: colors.terracotta.text.primary,
       accent: colors.terracotta.accent.main,
     }
+  }), []);
+
+  // Оптимизированные анимации с меньшим количеством кадров
+  const animations = {
+    fadeIn: {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      transition: { duration: 0.2 }
+    },
+    slideInLeft: {
+      initial: { opacity: 0, x: -5 },
+      animate: { opacity: 1, x: 0 },
+      transition: { duration: 0.2 }
+    },
+    slideInRight: {
+      initial: { opacity: 0, x: 5 },
+      animate: { opacity: 1, x: 0 },
+      transition: { duration: 0.2, delay: 0.1 }
+    },
+    scaleIn: {
+      initial: { scale: 0.98, opacity: 0 },
+      animate: { scale: 1, opacity: 1 },
+      transition: { duration: 0.2, delay: 0.1 }
+    },
+    fadeInUp: {
+      initial: { opacity: 0, y: 5 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.2, delay: 0.1 }
+    }
   };
 
   return (
     <>
       <section 
-        className="h-[100dvh] pt-16 sm:pt-[72px] flex items-center relative overflow-hidden"
-        style={{ backgroundColor: theme === 'dark' ? 'rgba(26, 26, 26, 0.9)' : 'rgba(255, 255, 255, 0.5)' }}
+        id="hero"
+        className="h-[100dvh] pt-16 sm:pt-[72px] flex items-center relative overflow-hidden bg-white/10 backdrop-blur-md"
+        style={{ 
+          backgroundColor: 'transparent',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)'
+        }}
       >
         <div className="container mx-auto h-full px-3 sm:px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-16">
           {/* Левая колонка с логотипом и текстом */}
           <motion.div 
-            className="flex flex-col justify-center h-full pt-0 pb-12 sm:py-4 lg:py-6 backdrop-blur-[2px]"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            className="flex flex-col justify-center h-full pt-0 pb-12 sm:py-4 lg:py-6"
+            {...animations.slideInLeft}
           >
             <motion.div 
               className="relative w-full h-[30vh] sm:h-[35vh] md:h-[40vh] lg:h-[45vh] mb-2 sm:mb-3 lg:mb-6"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+              {...animations.scaleIn}
             >
               <div className="relative w-full h-full">
                 <Image
@@ -62,6 +93,8 @@ const Hero: React.FC = () => {
                     filter: theme === 'dark' ? 'brightness(0) invert(1)' : 'none'
                   }}
                   priority
+                  loading="eager"
+                  quality={75}
                 />
               </div>
             </motion.div>
@@ -69,26 +102,22 @@ const Hero: React.FC = () => {
             <motion.p 
               className="text-xs sm:text-sm md:text-base lg:text-xl max-w-lg mb-3 sm:mb-4 lg:mb-6 leading-relaxed tracking-wide"
               style={{ color: heroColors[theme].text }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              {...animations.fadeInUp}
             >
               {t('hero.subtitle')}
             </motion.p>
 
             <Link href="#accommodation">
               <motion.button 
-                className="px-5 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4 rounded-lg text-xs sm:text-sm md:text-base lg:text-lg font-medium transition-all duration-300 shadow-lg"
+                className="px-5 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4 rounded-lg text-xs sm:text-sm md:text-base lg:text-lg font-medium transition-colors duration-200 shadow-lg"
                 style={{ 
                   backgroundColor: heroColors[theme].accent,
                   color: '#FFFFFF',
                   boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)'
                 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.3 }}
+                {...animations.fadeInUp}
                 whileHover={{ 
-                  scale: 1.02,
+                  scale: 1.01,
                   boxShadow: '0 6px 20px rgba(0, 0, 0, 0.15)'
                 }}
                 whileTap={{ scale: 0.98 }}
@@ -101,19 +130,20 @@ const Hero: React.FC = () => {
           {/* Правая колонка с фотографией */}
           <motion.div 
             className="relative h-full lg:h-[85%] my-auto rounded-2xl sm:rounded-[32px] overflow-hidden hidden sm:block lg:block"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            {...animations.slideInRight}
           >
             <Image
               src="/images/kitchen-people.webp"
               alt="Happy people in kitchen"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{ 
                 objectFit: 'cover',
                 objectPosition: 'center',
               }}
-              className="rounded-[32px] scale-105 hover:scale-100 transition-transform duration-700"
+              className="rounded-[32px] scale-105 hover:scale-100 transition-transform duration-300"
+              loading="eager"
+              quality={75}
             />
             {/* Градиентный оверлей для лучшей читаемости текста */}
             <div 
@@ -125,21 +155,21 @@ const Hero: React.FC = () => {
         {/* Мобильная версия изображения */}
         <motion.div 
           className="absolute inset-0 -z-10 sm:hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.15 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          {...animations.fadeIn}
         >
           <Image
             src="/images/kitchen-people.webp"
             alt="Background"
             fill
+            sizes="100vw"
             style={{ 
               objectFit: 'cover',
               objectPosition: 'center',
             }}
-            className="blur-[1px]"
+            loading="eager"
+            quality={60}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-white/50 dark:from-black/80 dark:to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/10 backdrop-blur-sm" />
         </motion.div>
       </section>
 

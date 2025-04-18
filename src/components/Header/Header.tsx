@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
@@ -9,179 +9,142 @@ import Logo from '@/components/Logo/Logo';
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useActiveSection } from '@/hooks/useActiveSection';
 import Image from 'next/image';
+import { useActiveSection } from '@/hooks/useActiveSection';
 
 const Header: React.FC = () => {
   const { t } = useLanguage();
   const { theme } = useTheme();
-  const activeSection = useActiveSection();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const activeSection = useActiveSection();
 
-  const headerColors = {
+  // Мемоизируем цвета для предотвращения пересчета при каждом рендере
+  const headerColors = useMemo(() => ({
     default: {
       bg: colors.default.background.main,
       text: colors.default.text.primary,
       hover: colors.default.accent.main,
+      active: colors.default.accent.main,
+      activeBg: 'rgba(255, 255, 255, 0.1)',
     },
     dark: {
       bg: colors.dark.background.main,
       text: colors.dark.text.primary,
       hover: colors.dark.accent.main,
+      active: colors.dark.accent.main,
+      activeBg: 'rgba(208, 90, 69, 0.2)',
     },
     terracotta: {
       bg: colors.terracotta.background.main,
-      text: colors.terracotta.text.primary,
-      hover: colors.terracotta.accent.main,
+      text: '#FFFFFF',
+      hover: '#FFFFFF',
+      active: '#FFFFFF',
+      activeBg: 'rgba(255, 255, 255, 0.25)',
     }
+  }), []);
+
+  // Мемоизируем навигационные элементы
+  const navItems = ['hero', 'concept', 'accommodation', 'services', 'contact'];
+
+  // Оптимизированные анимации с меньшим количеством кадров
+  const menuItemAnimation = {
+    initial: { opacity: 0, y: -20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.2 }
   };
 
-  const logoVariants = {
-    default: 'dark',
-    dark: 'light',
-    terracotta: 'dark'
-  } as const;
+  // Получаем текущий цвет фона для шапки
+  const headerBgColor = theme === 'terracotta' 
+    ? `${headerColors[theme].bg}95`
+    : `${headerColors[theme].bg}80`;
 
   return (
-    <motion.header 
-      className="fixed w-full z-50 backdrop-blur-sm"
-      style={{ 
-        backgroundColor: theme === 'dark' ? 'rgba(42, 42, 42, 0.8)' : 'rgba(255, 255, 255, 0.5)'
+    <motion.header
+      key={`header-${theme}`}
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
+      style={{
+        backgroundColor: headerBgColor,
       }}
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >      
-      <div className="container mx-auto px-4 py-1 relative">
-        <div className="flex justify-between items-center h-10">
-          <motion.div 
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/images/Artboard 2@4x.png"
-                alt="Unight Hostel"
-                width={120}
-                height={40}
-                className="h-8 w-auto"
-                style={{
-                  filter: theme === 'dark' ? 'brightness(0) invert(1)' : 'none'
-                }}
-                priority
-              />
-            </Link>
-          </motion.div>
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Logo />
           
-          <div className="flex-1 flex justify-center">
-            <nav className="hidden md:flex space-x-8">
-              {['concept', 'accommodation', 'services', 'contact'].map((item) => (
-                <motion.div
-                  key={item}
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <Link 
-                    href={`#${item}`} 
-                    className="text-xs tracking-wide relative"
-                    style={{ 
-                      color: activeSection === item 
-                        ? (theme === 'terracotta' || theme === 'dark') ? '#cc5440' : headerColors[theme].hover
-                        : headerColors[theme].text,
-                      opacity: activeSection === item ? 1 : 0.7,
-                      fontWeight: activeSection === item ? 600 : 400
-                    }}
-                  >
-                    {t(`nav.${item}`).toUpperCase()}
-                    {activeSection === item && (
-                      <motion.div
-                        className="absolute -bottom-1 left-0 w-full h-0.5"
-                        style={{ 
-                          backgroundColor: (theme === 'terracotta' || theme === 'dark') ? '#cc5440' : headerColors[theme].hover,
-                          opacity: 0.8 
-                        }}
-                        layoutId="activeSection"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    )}
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
-
-            {/* Мобильное меню иконка */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 focus:outline-none"
-                aria-label="Toggle mobile menu"
+          <nav className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => (
+              <motion.div
+                key={item}
+                {...menuItemAnimation}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  style={{ color: headerColors[theme].text }}
+                <Link 
+                  href={`#${item}`} 
+                  className={`text-xs tracking-wide relative px-3 py-1.5 rounded-md transition-colors duration-200 ${
+                    theme === 'terracotta' ? 'drop-shadow-sm hover:drop-shadow-md' : ''
+                  }`}
+                  style={{ 
+                    color: activeSection === item ? headerColors[theme].active : headerColors[theme].text,
+                    opacity: activeSection === item ? 1 : 0.85,
+                    backgroundColor: activeSection === item ? headerColors[theme].activeBg : 'transparent',
+                    textShadow: theme === 'terracotta' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
+                  }}
                 >
-                  {isMobileMenuOpen ? (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  ) : (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  )}
-                </svg>
-              </button>
-            </div>
-          </div>
+                  {t(`nav.${item}`).toUpperCase()}
+                </Link>
+              </motion.div>
+            ))}
+          </nav>
 
           <div className="flex items-center space-x-4">
-            <LanguageToggle />
             <ThemeToggle />
+            <LanguageToggle />
+            <button
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              <Image
+                src={`/icons/menu-${isMobileMenuOpen ? 'close' : 'open'}.svg`}
+                alt={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                width={24}
+                height={24}
+                style={{
+                  filter: theme === 'dark' ? 'invert(1)' : 'none'
+                }}
+              />
+            </button>
           </div>
         </div>
-        
-        {/* Мобильное меню выпадающее */}
+
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
               className="md:hidden"
-              style={{ 
-                backgroundColor: theme === 'dark' ? 'rgba(42, 42, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)', 
-                backdropFilter: 'blur(10px)'
-              }}
-              transition={{ duration: 0.3 }}
             >
-              <div className="py-4 px-4 space-y-2">
-                {['concept', 'accommodation', 'services', 'contact'].map((item) => (
+              <div className="py-4 space-y-1">
+                {navItems.map((item) => (
                   <motion.div 
                     key={item}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.15 }}
                   >
                     <Link
                       href={`#${item}`}
-                      className="block py-2 text-center text-sm font-medium"
+                      className={`block py-2 px-4 text-center text-sm rounded-md transition-colors duration-200 ${
+                        theme === 'terracotta' ? 'drop-shadow-sm hover:drop-shadow-md' : ''
+                      }`}
                       style={{ 
-                        color: activeSection === item 
-                          ? (theme === 'terracotta' || theme === 'dark') ? '#cc5440' : headerColors[theme].hover
-                          : headerColors[theme].text,
-                        fontWeight: activeSection === item ? 600 : 400
+                        color: activeSection === item ? headerColors[theme].active : headerColors[theme].text,
+                        opacity: activeSection === item ? 1 : 0.85,
+                        backgroundColor: activeSection === item ? headerColors[theme].activeBg : 'transparent',
+                        textShadow: theme === 'terracotta' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
                       }}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -198,4 +161,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header; 
+export default Header;

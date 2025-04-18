@@ -1,5 +1,6 @@
 {
   "nav": {
+    "hero": "Home",
     "concept": "Concept",
     "about": "About Us",
     "accommodation": "Accommodation",
@@ -176,6 +177,12 @@
       "email": "Email",
       "message": "Message",
       "send": "Send Message"
+    },
+    "social": {
+      "label": "Follow Us",
+      "instagram": "Follow us on Instagram",
+      "facebook": "Follow us on Facebook",
+      "booking": "Book on Booking.com"
     }
   },
   "themes": {

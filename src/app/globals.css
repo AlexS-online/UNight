@@ -30,22 +30,236 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
 
 :root {
-  --foreground-rgb: 45, 52, 54;
-  --background-rgb: 255, 255, 255;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
   --font-primary: Helvetica, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-secondary: 'Nunito', sans-serif;
 }
 
-/* Базовые стили */
+[data-theme='dark'] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+[data-theme='terracotta'] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 208, 90, 69;
+  --background-end-rgb: 208, 90, 69;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: rgb(var(--background-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
   font-family: var(--font-secondary);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Добавляем класс для принудительного обновления при смене темы */
+.theme-transition {
+  transition: all 0.3s ease !important;
+}
+
+/* Стили для заголовков */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold;
+  transition: color 0.3s ease;
+}
+
+/* Стили для подзаголовков */
+.subheading {
+  @apply text-lg text-gray-600;
+  transition: color 0.3s ease;
+}
+
+[data-theme='dark'] .subheading {
+  @apply text-gray-300;
+}
+
+/* Стили для кнопок */
+button {
+  transition: all 0.3s ease;
+}
+
+/* Стили для ссылок */
+a {
+  transition: all 0.3s ease;
+}
+
+/* Стили для инпутов */
+input, textarea {
+  transition: all 0.3s ease;
+}
+
+/* Стили для карточек */
+.card {
+  transition: all 0.3s ease;
+}
+
+/* Стили для модальных окон */
+.modal {
+  transition: all 0.3s ease;
+}
+
+/* Стили для навигации */
+nav {
+  transition: all 0.3s ease;
+}
+
+/* Стили для футера */
+footer {
+  transition: all 0.3s ease;
+}
+
+/* Стили для секций */
+section {
+  transition: all 0.3s ease;
+}
+
+/* Стили для иконок */
+svg {
+  transition: all 0.3s ease;
+}
+
+/* Стили для изображений */
+img {
+  transition: all 0.3s ease;
+}
+
+/* Стили для фонов */
+.bg-gradient {
+  transition: all 0.3s ease;
+}
+
+/* Стили для теней */
+.shadow {
+  transition: all 0.3s ease;
+}
+
+/* Стили для границ */
+.border {
+  transition: all 0.3s ease;
+}
+
+/* Стили для прозрачности */
+.opacity {
+  transition: all 0.3s ease;
+}
+
+/* Стили для трансформаций */
+.transform {
+  transition: all 0.3s ease;
+}
+
+/* Стили для анимаций */
+.animate {
+  transition: all 0.3s ease;
+}
+
+/* Стили для hover эффектов */
+.hover {
+  transition: all 0.3s ease;
+}
+
+/* Стили для focus эффектов */
+.focus {
+  transition: all 0.3s ease;
+}
+
+/* Стили для active эффектов */
+.active {
+  transition: all 0.3s ease;
+}
+
+/* Стили для disabled эффектов */
+.disabled {
+  transition: all 0.3s ease;
+}
+
+/* Стили для loading эффектов */
+.loading {
+  transition: all 0.3s ease;
+}
+
+/* Стили для error эффектов */
+.error {
+  transition: all 0.3s ease;
+}
+
+/* Стили для success эффектов */
+.success {
+  transition: all 0.3s ease;
+}
+
+/* Стили для warning эффектов */
+.warning {
+  transition: all 0.3s ease;
+}
+
+/* Стили для info эффектов */
+.info {
+  transition: all 0.3s ease;
+}
+
+/* Стили для primary эффектов */
+.primary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для secondary эффектов */
+.secondary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для tertiary эффектов */
+.tertiary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для quaternary эффектов */
+.quaternary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для quinary эффектов */
+.quinary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для senary эффектов */
+.senary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для septenary эффектов */
+.septenary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для octonary эффектов */
+.octonary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для nonary эффектов */
+.nonary {
+  transition: all 0.3s ease;
+}
+
+/* Стили для denary эффектов */
+.denary {
+  transition: all 0.3s ease;
 }
 
 /* Фоновый паттерн */
@@ -134,11 +348,6 @@ body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
     font-family: var(--font-primary);
   }
 
-  .subheading {
-    @apply text-xl lg:text-2xl text-[#636E72] tracking-wide font-normal;
-    font-family: var(--font-secondary);
-  }
-
   .text-brand {
     @apply font-extrabold;
     font-family: var(--font-primary);
@@ -193,4 +402,9 @@ body[data-theme="dark"] .gradient-bg {
 /* Стеклянный эффект для темной темы */
 body[data-theme="dark"] .glass {
   @apply bg-[#2A2A2A]/80 backdrop-blur-md border-[#D05A45]/20 border;
+}
+
+/* Принудительное обновление при изменении темы */
+body[data-theme="dark"] * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 } 
