@@ -8,117 +8,86 @@
     "contact": "Contact"
   },
   "hero": {
-    "welcome": "Welcome to",
-    "subtitle": "Experience the perfect blend of comfort and community in the heart of Montenegro",
-    "bookNow": "Accommodation Options"
+    "title": "U-Night Hostel",
+    "subtitle": "A combination of coziness and friendly atmosphere in the heart of the Montenegrin coast.",
+    "bookNow": "Book Now",
+    "imageAlt": "Happy people in the kitchen"
   },
   "concept": {
-    "title": "Our Concept",
-    "subtitle": "Experience the perfect blend of community, comfort, and culture in our unique hostel environment",
-    "learnMore": "Learn More",
-    "community": {
-      "title": "Community",
-      "description": "Create meaningful connections with travelers from around the world in our specially designed common spaces"
-    },
-    "comfort": {
-      "title": "Comfort",
-      "description": "Experience the perfect balance of privacy and luxury with our modern amenities and thoughtful design"
-    },
-    "culture": {
-      "title": "Culture",
-      "description": "Immerse yourself in the rich Montenegrin culture through our local partnerships and guided experiences"
-    },
-    "location": {
-      "title": "Perfect Location",
-      "description": "Just 500 meters to the sea and beach. Convenient location in the city center with quick access to main attractions and entertainment."
-    },
-    "capsules": {
-      "title": "Cozy Capsules",
-      "description": "Individual space with thoughtful design. Each capsule is equipped with everything needed for comfortable rest and work."
-    },
-    "kitchen": {
-      "title": "Shared Kitchen",
-      "description": "Fully equipped kitchen with all necessary appliances and utensils. Spacious area for cooking favorite meals and socializing."
-    },
-    "breakfast": {
-      "title": "Tasty Breakfast",
-      "description": "Every morning we offer fresh and varied breakfast options. A great start to the day in a friendly atmosphere."
+    "title": "Concept",
+    "items": {
+      "location": {
+        "title": "Perfect location",
+        "description": "Just 500 meters from the sea and beach. Conveniently located near main attractions and entertainment."
+      },
+      "comfort": {
+        "title": "Comfort",
+        "description": "Modern equipment and smart design provide a balance of privacy and convenience."
+      },
+      "community": {
+        "title": "Community",
+        "description": "Make warm connections with travelers from all over the world in our cozy common areas."
+      },
+      "culture": {
+        "title": "Culture",
+        "description": "Dive into local culture with excursions and partnerships with local guides."
+      }
     }
   },
   "accommodation": {
-    "title": "Choose the perfect space for your stay at Unight Hostel",
-    "description": "We offer a variety of accommodation options to suit every traveler's needs and preferences",
+    "title": "Accommodation",
+    "subtitle": "Choose the perfect space for your stay:",
     "bookNow": "Book Now",
-    "priceFrom": "Starting at",
-    "details": "View Details",
-    "features": {
-      "personal_lighting": "Personal lighting",
-      "power_outlets": "Power outlets",
-      "usb_ports": "USB ports",
-      "privacy_curtain": "Privacy curtain",
-      "ventilation": "Ventilation",
-      "storage": "Storage space",
-      "lockers": "Individual lockers",
-      "reading_lights": "Reading lights",
-      "shared_bathroom": "Shared bathroom",
-      "private_bathroom": "Private bathroom",
-      "air_conditioning": "Air conditioning",
-      "desk": "Desk & chair",
-      "wardrobe": "Wardrobe",
-      "double_bed": "Double bed"
-    },
     "options": {
       "capsule": {
-        "title": "Capsule Pod",
-        "shortDesc": "Modern sleeping capsules",
-        "description": "Modern sleeping capsules with premium comfort",
+        "title": "Capsules",
+        "description": "Modern single and double sleeping pods.",
         "features": [
-          "Personal smart lighting",
-          "Power outlets & USB ports",
-          "Privacy curtain",
-          "Ventilation control",
-          "Storage space"
-        ],
-        "price": "from €25/night"
+          "Modern design",
+          "Individual lighting",
+          "Power outlets",
+          "Ventilation"
+        ]
       },
       "female": {
-        "title": "Female Dorm",
-        "shortDesc": "6-bed female-only dormitory",
-        "description": "Comfortable 6-bed female-only dormitory",
+        "title": "Female Room",
+        "description": "Cozy 6-bed room with single capsules.",
         "features": [
-          "Individual lockers",
-          "Reading lights",
-          "Power outlets",
+          "8 single capsules",
           "Shared bathroom",
-          "Privacy curtains"
-        ],
-        "price": "from €20/night"
+          "Relaxation area",
+          "Free Wi-Fi"
+        ]
+      },
+      "male": {
+        "title": "Male Room",
+        "description": "Cozy 6-bed room with single capsules.",
+        "features": [
+          "8 single capsules",
+          "Shared bathroom",
+          "Relaxation area",
+          "Free Wi-Fi"
+        ]
       },
       "mixed": {
-        "title": "Mixed Dorm",
-        "shortDesc": "8-bed mixed dormitory",
-        "description": "Spacious 8-bed mixed dormitory",
+        "title": "Mixed Room",
+        "description": "Spacious 8-bed room with double capsules.",
         "features": [
-          "Individual lockers",
-          "Reading lights",
-          "Power outlets",
+          "6 double capsules",
           "Shared bathroom",
-          "Privacy curtains"
-        ],
-        "price": "from €18/night"
+          "Relaxation area",
+          "Free Wi-Fi"
+        ]
       },
       "private": {
-        "title": "Private Room",
-        "shortDesc": "Cozy room for 1-2 persons",
-        "description": "Cozy private room for 1-2 persons",
+        "title": "Family Room",
+        "description": "Private room with 2 single capsules, a bed, and a reading table, suitable for two or more guests.",
         "features": [
-          "Double bed",
-          "Private bathroom",
-          "Air conditioning",
-          "Desk & chair",
-          "Wardrobe"
-        ],
-        "price": "from €45/night"
+          "2 single capsules",
+          "Bunk bed",
+          "Reading table",
+          "Private bathroom"
+        ]
       }
     }
   },
@@ -157,34 +126,6 @@
     "description": "We collaborate with local businesses and tour operators to provide our guests with authentic experiences and exclusive discounts.",
     "becomePartner": "Become a Partner"
   },
-  "contact": {
-    "title": "Get in Touch",
-    "info": "Contact Information",
-    "address": {
-      "label": "Address",
-      "value": "U-Night Hostel, Budva, Montenegro"
-    },
-    "email": {
-      "label": "Email",
-      "value": "info@unighthostel.com"
-    },
-    "phone": {
-      "label": "Phone",
-      "value": "+382 XX XXX XXX"
-    },
-    "form": {
-      "name": "Name",
-      "email": "Email",
-      "message": "Message",
-      "send": "Send Message"
-    },
-    "social": {
-      "label": "Follow Us",
-      "instagram": "Follow us on Instagram",
-      "facebook": "Follow us on Facebook",
-      "booking": "Book on Booking.com"
-    }
-  },
   "themes": {
     "default": "Default",
     "dark": "Dark",
@@ -194,6 +135,7 @@
   "languages": {
     "en": "English",
     "mne": "Montenegrin",
+    "ru": "Russian",
     "switchLanguage": "Switch language"
   },
   "logo": {
@@ -202,28 +144,62 @@
     "fullName": "Unight Hostel"
   },
   "services": {
-    "title": "Additional Services",
-    "subtitle": "Make your stay more comfortable with our extra services",
+    "title": "Services",
+    "subtitle": "Additional services for your comfort",
     "learnMore": "Learn More",
-    "laundry": {
-      "title": "Laundry",
-      "description": "Self-service laundry facilities with washing machines and dryers"
-    },
-    "transfer": {
-      "title": "Transfer",
-      "description": "Airport transfers and transportation services to popular destinations"
-    },
-    "breakfast": {
-      "title": "Breakfast",
-      "description": "Fresh and varied breakfast options served every morning"
-    },
-    "excursions": {
-      "title": "Excursions",
-      "description": "Guided tours to the most beautiful places in Montenegro"
-    },
-    "rental": {
-      "title": "Equipment Rental",
-      "description": "Rent bikes, beach equipment, and other useful items"
+    "items": {
+      "laundry": {
+        "title": "Laundry",
+        "description": "Self-service area with washing machines and dryers."
+      },
+      "transfer": {
+        "title": "Transfer",
+        "description": "Airport transfer or trips to popular destinations."
+      },
+      "breakfast": {
+        "title": "Breakfast",
+        "description": "Fresh and varied breakfast every morning."
+      },
+      "excursions": {
+        "title": "Excursions",
+        "description": "Organized land and sea tours to the most beautiful places and beaches of Montenegro."
+      },
+      "rental": {
+        "title": "Equipment rental",
+        "description": "Cars, scooters, beach gear, and more."
+      }
     }
+  },
+  "contact": {
+    "title": "Contact",
+    "address": {
+      "label": "Address",
+      "value": "U-Night Hostel, Bečići, Budva, Montenegro"
+    },
+    "email": {
+      "label": "Email",
+      "value": "info@unight.me"
+    },
+    "phone": {
+      "label": "Phone",
+      "value": "+382"
+    },
+    "form": {
+      "name": "Your name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send"
+    },
+    "social": {
+      "label": "Follow us",
+      "instagram": "Follow us on Instagram",
+      "facebook": "Follow us on Facebook",
+      "booking": "Book on Booking.com"
+    }
+  },
+  "common": {
+    "close": "Close",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   }
 } 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
@@ -17,6 +17,8 @@ const Header: React.FC = () => {
   const { theme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const activeSection = useActiveSection();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   // Мемоизируем цвета для предотвращения пересчета при каждом рендере
   const headerColors = useMemo(() => ({
@@ -58,6 +60,35 @@ const Header: React.FC = () => {
     ? `${headerColors[theme].bg}95`
     : `${headerColors[theme].bg}80`;
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        menuButtonRef.current &&
+        !menuButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen]);
+
   return (
     <motion.header
       key={`header-${theme}`}
@@ -68,12 +99,13 @@ const Header: React.FC = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
+      role="banner"
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Logo />
           
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
             {navItems.map((item) => (
               <motion.div
                 key={item}
@@ -101,13 +133,16 @@ const Header: React.FC = () => {
             <ThemeToggle />
             <LanguageToggle />
             <button
+              ref={menuButtonRef}
               className="md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
+              aria-label={isMobileMenuOpen ? t('common.closeMenu') : t('common.openMenu')}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               <Image
                 src={`/icons/menu-${isMobileMenuOpen ? 'close' : 'open'}.svg`}
-                alt={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                alt={isMobileMenuOpen ? t('common.closeMenu') : t('common.openMenu')}
                 width={24}
                 height={24}
                 style={{
@@ -121,11 +156,15 @@ const Header: React.FC = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
+              ref={mobileMenuRef}
+              id="mobile-menu"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
               className="md:hidden"
+              role="navigation"
+              aria-label="Mobile navigation"
             >
               <div className="py-4 space-y-1">
                 {navItems.map((item) => (

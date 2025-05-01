@@ -1,14 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { colors } from '@/styles/colors';
 
 const ThemeToggle: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const { t } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     const themes: Array<'default' | 'terracotta' | 'dark'> = ['default', 'terracotta', 'dark'];
@@ -31,6 +35,10 @@ const ThemeToggle: React.FC = () => {
       dot: '#FFFFFF',
     },
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <motion.button

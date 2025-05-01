@@ -8,13 +8,11 @@ import { useLanguage } from '@/context/LanguageContext';
 interface LogoProps {
   className?: string;
   size?: 'small' | 'medium' | 'large';
-  variant?: 'light' | 'dark';
 }
 
 const Logo: React.FC<LogoProps> = ({ 
   className = '', 
-  size = 'medium',
-  variant = 'light'
+  size = 'medium'
 }) => {
   const { theme } = useTheme();
   const { t } = useLanguage();

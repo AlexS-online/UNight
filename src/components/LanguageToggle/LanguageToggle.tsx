@@ -1,53 +1,158 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 
-const LanguageToggle = () => {
+interface ColorScheme {
+  bg: string;
+  text: string;
+  hover: string;
+  active: string;
+}
+
+interface ColorSchemes {
+  default: ColorScheme;
+  dark: ColorScheme;
+  terracotta: ColorScheme;
+}
+
+const LanguageToggle: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
   const { theme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'mne' : 'en');
-  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const toggleColors = {
-    default: {
-      bg: 'rgba(0, 0, 255, 0.05)',
-      text: '#0000FF',
-      hover: 'rgba(0, 0, 255, 0.1)',
-    },
-    dark: {
-      bg: 'rgba(208, 90, 69, 0.05)',
-      text: '#D05A45',
-      hover: 'rgba(208, 90, 69, 0.1)',
-    },
-    terracotta: {
-      bg: 'rgba(255, 255, 255, 0.15)',
-      text: '#FFFFFF',
-      hover: 'rgba(255, 255, 255, 0.25)',
-    },
-  };
+  const languages = useMemo(() => [
+    { code: 'en', label: t('languages.en') },
+    { code: 'mne', label: t('languages.mne') },
+    { code: 'ru', label: t('languages.ru') }
+  ], [t]);
 
-  const currentColors = toggleColors[theme];
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+
+  const currentColors = useMemo(() => {
+    const colorSchemes: ColorSchemes = {
+      default: {
+        bg: 'rgba(0, 0, 255, 0.1)',
+        text: '#2A2A2A',
+        hover: 'rgba(0, 0, 255, 0.2)',
+        active: '#0000FF',
+      },
+      dark: {
+        bg: 'rgba(208, 90, 69, 0.1)',
+        text: '#FFFFFF',
+        hover: 'rgba(208, 90, 69, 0.2)',
+        active: '#D05A45',
+      },
+      terracotta: {
+        bg: 'rgba(255, 255, 255, 0.1)',
+        text: '#FFFFFF',
+        hover: 'rgba(255, 255, 255, 0.2)',
+        active: '#FFFFFF',
+      },
+    };
+    return colorSchemes[theme];
+  }, [theme]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <motion.button
-      onClick={toggleLanguage}
-      className="px-4 py-1.5 text-sm font-medium rounded-full"
-      style={{
-        backgroundColor: currentColors.bg,
-        color: currentColors.text,
-      }}
-      whileHover={{
-        backgroundColor: currentColors.hover,
-      }}
-      whileTap={{ scale: 0.95 }}
-    >
-      {language === 'en' ? 'EN' : 'MNE'}
-    </motion.button>
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center space-x-2 px-3 py-2 rounded-lg"
+        style={{
+          color: currentColors.text,
+          backgroundColor: isOpen ? `${currentColors.bg}80` : 'transparent',
+        }}
+        aria-label={t('languages.switchLanguage')}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        <span className="text-xs font-medium">
+          {languages.find(lang => lang.code === language)?.label}
+        </span>
+        <svg
+          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute right-0 mt-2 py-2 w-40 rounded-lg shadow-lg overflow-hidden"
+            style={{ backgroundColor: currentColors.bg }}
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="language-menu"
+          >
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => {
+                  setLanguage(lang.code as 'en' | 'mne' | 'ru');
+                  setIsOpen(false);
+                }}
+                className={`w-full px-4 py-2 text-left text-sm transition-colors duration-200 ${
+                  language === lang.code ? 'font-medium' : ''
+                }`}
+                style={{ 
+                  color: language === lang.code ? currentColors.active : currentColors.text,
+                  backgroundColor: language === lang.code ? `${currentColors.bg}80` : 'transparent',
+                }}
+                role="menuitem"
+              >
+                {lang.label}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 

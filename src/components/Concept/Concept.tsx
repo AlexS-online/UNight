@@ -147,13 +147,13 @@ const Concept: React.FC = () => {
                 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-4"
                 style={{ color: currentColors.text }}
               >
-                {t(`concept.${item.key}.title`)}
+                {t(`concept.items.${item.key}.title`)}
               </h3>
               <p 
                 className="text-sm sm:text-base flex-grow mb-4 sm:mb-6"
                 style={{ color: currentColors.text }}
               >
-                {t(`concept.${item.key}.description`)}
+                {t(`concept.items.${item.key}.description`)}
               </p>
             </motion.div>
           ))}

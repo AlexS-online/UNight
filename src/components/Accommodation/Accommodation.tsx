@@ -11,7 +11,14 @@ import { createPortal } from 'react-dom';
 interface ModalProps {
   onClose: () => void;
   theme: string;
-  accommodationColors: any;
+  accommodationColors: {
+    [key: string]: {
+      bg: string;
+      text: string;
+      cardBg: string;
+      accent: string;
+    };
+  };
 }
 
 const Modal: React.FC<ModalProps> = ({ onClose, theme, accommodationColors }) => {
@@ -150,11 +157,6 @@ const Accommodation: React.FC = () => {
         ease: "easeInOut"
       },
     },
-  };
-
-  const getFeatures = (key: string): string[] => {
-    const features = t(`accommodation.options.${key}.features`);
-    return Array.isArray(features) ? features : [];
   };
 
   return (

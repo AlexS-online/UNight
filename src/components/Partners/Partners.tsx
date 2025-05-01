@@ -5,13 +5,32 @@ import { motion } from 'framer-motion';
 import { colors } from '@/styles/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
-import Image from 'next/image';
 
-const AdditionalServices: React.FC = () => {
+interface ServiceColors {
+  bg: string;
+  title: string;
+  text: string;
+  cardBg: string;
+  icon: string;
+  hover: string;
+}
+
+interface ServiceColorsMap {
+  default: ServiceColors;
+  dark: ServiceColors;
+  terracotta: ServiceColors;
+}
+
+interface Service {
+  key: string;
+  icon: React.ReactNode;
+}
+
+const Partners: React.FC = () => {
   const { t } = useLanguage();
   const { theme } = useTheme();
 
-  const serviceColors = useMemo(() => ({
+  const serviceColors = useMemo<ServiceColorsMap>(() => ({
     default: {
       bg: colors.default.background.light,
       title: colors.default.primary.main,
@@ -38,7 +57,7 @@ const AdditionalServices: React.FC = () => {
     }
   }), []);
 
-  const services = useMemo(() => [
+  const services = useMemo<Service[]>(() => [
     {
       key: 'laundry',
       icon: (
@@ -225,4 +244,4 @@ const AdditionalServices: React.FC = () => {
   );
 };
 
-export default AdditionalServices; 
+export default Partners; 
