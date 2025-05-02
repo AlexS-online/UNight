@@ -114,7 +114,7 @@ const Partners: React.FC = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 10 },
-    visible: { 
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
@@ -127,21 +127,21 @@ const Partners: React.FC = () => {
   const currentColors = useMemo(() => serviceColors[theme], [theme, serviceColors]);
 
   return (
-    <section 
-      id="services" 
+    <section
+      id="services"
       className="py-16 sm:py-20 md:py-24 relative overflow-hidden"
-      style={{ 
-        backgroundColor: theme === 'dark' ? 'rgba(26, 26, 26, 0.9)' : currentColors.bg 
+      style={{
+        backgroundColor: theme === 'dark' ? 'rgba(26, 26, 26, 0.9)' : currentColors.bg
       }}
     >
-      <div 
+      <div
         className="absolute inset-0 opacity-10"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, ${currentColors.icon}20 1px, transparent 0)`,
           backgroundSize: '30px 30px',
         }}
       />
-      
+
       <div className="container mx-auto px-3 sm:px-4 relative">
         <motion.div
           initial="hidden"
@@ -150,13 +150,13 @@ const Partners: React.FC = () => {
           variants={containerVariants}
         >
           <div className="text-center mb-10 sm:mb-12 md:mb-16">
-            <motion.h2 
+            <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 inline-block relative"
               style={{ color: currentColors.title }}
               variants={itemVariants}
             >
               {t('services.title')}
-              <motion.div 
+              <motion.div
                 className="absolute -bottom-2 sm:-bottom-3 left-1/2 h-1 rounded-full transform -translate-x-1/2"
                 style={{ backgroundColor: currentColors.icon, width: '60%' }}
                 initial={{ width: 0 }}
@@ -164,8 +164,8 @@ const Partners: React.FC = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
               />
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               className="text-base sm:text-lg max-w-2xl mx-auto"
               style={{ color: currentColors.text }}
               variants={itemVariants}
@@ -174,17 +174,17 @@ const Partners: React.FC = () => {
             </motion.p>
           </div>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
             variants={containerVariants}
           >
             {services.map((service) => (
-              <motion.div 
+              <motion.div
                 key={service.key}
                 className="group relative p-5 sm:p-6 md:p-8 rounded-2xl shadow-lg transition-all duration-200 hover:shadow-xl text-center flex flex-col h-full overflow-hidden"
-                style={{ 
+                style={{
                   backgroundColor: currentColors.cardBg,
-                  borderBottom: `3px solid ${currentColors.icon}` 
+                  borderBottom: `3px solid ${currentColors.icon}`
                 }}
                 variants={itemVariants}
                 whileHover={{ scale: 1.01, y: -3 }}
@@ -192,10 +192,10 @@ const Partners: React.FC = () => {
                 <div className="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 rounded-full opacity-10"
                   style={{ backgroundColor: currentColors.icon }}
                 />
-                
-                <div 
+
+                <div
                   className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mx-auto mb-4 sm:mb-6 rounded-full flex items-center justify-center transition-all duration-200 relative z-10 group-hover:scale-105 group-hover:shadow-lg"
-                  style={{ 
+                  style={{
                     color: currentColors.icon,
                     backgroundColor: `${currentColors.icon}15`,
                     boxShadow: `0 0 0 4px ${currentColors.icon}10`
@@ -210,24 +210,24 @@ const Partners: React.FC = () => {
                     {service.icon}
                   </motion.div>
                 </div>
-                <h3 
+                <h3
                   className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-4 transition-all duration-200 group-hover:text-[1.15rem] sm:group-hover:text-[1.3rem]"
                   style={{ color: currentColors.title }}
                 >
                   {t(`services.${service.key}.title`)}
                 </h3>
-                <p 
+                <p
                   className="text-sm sm:text-base flex-grow mb-4 sm:mb-6"
                   style={{ color: currentColors.text }}
                 >
                   {t(`services.${service.key}.description`)}
                 </p>
-                
+
                 <motion.button
                   whileHover={{ scale: 1.02, y: -1 }}
                   whileTap={{ scale: 0.98 }}
                   className="mt-auto py-3 px-6 rounded-lg text-sm font-medium transition-all duration-200 self-center"
-                  style={{ 
+                  style={{
                     backgroundColor: currentColors.icon + '20',
                     color: currentColors.icon,
                     border: `1px solid ${currentColors.icon}40`
@@ -244,4 +244,4 @@ const Partners: React.FC = () => {
   );
 };
 
-export default Partners; 
+export default Partners;

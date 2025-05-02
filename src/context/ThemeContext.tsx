@@ -13,7 +13,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('default');
+  const [theme, setTheme] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -26,13 +26,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!mounted) return;
-    
+
     localStorage.setItem('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
-    
-    const event = new CustomEvent('themeChange', { 
+
+    const event = new CustomEvent('themeChange', {
       detail: { theme },
-      bubbles: true 
+      bubbles: true
     });
     document.dispatchEvent(event);
   }, [theme, mounted]);
@@ -61,4 +61,4 @@ export function useTheme() {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
-} 
+}

@@ -138,11 +138,11 @@ const Accommodation: React.FC = () => {
   };
 
   const cardVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: 10,
     },
-    visible: { 
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
@@ -160,26 +160,26 @@ const Accommodation: React.FC = () => {
   };
 
   return (
-    <section 
-      id="accommodation" 
+    <section
+      id="accommodation"
       className="py-16 sm:py-20 md:py-24 relative overflow-hidden"
     >
       <div className="container mx-auto px-3 sm:px-4 relative z-10">
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           className="text-center mb-8 sm:mb-10 md:mb-12"
         >
-          <h2 
+          <h2
             className="text-xl sm:text-2xl md:text-3xl font-semibold mb-2 sm:mb-3 md:mb-4"
             style={{ color: accommodationColors[theme].text }}
           >
             {t('accommodation.title')}
           </h2>
         </motion.div>
-        
+
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {options.map((option) => (
             <motion.div
@@ -198,10 +198,10 @@ const Accommodation: React.FC = () => {
                 loading="lazy"
                 quality={75}
               />
-              <div 
+              <div
                 className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+              <div className="absolute bottom-0 left-0 right-0 p-4 text-white backdrop-blur-[1px] md:bg-[rgba(0,0,0,0.4)]">
                 <h3 className="text-lg font-medium mb-1">
                   {t(`accommodation.options.${option.key}.title`)}
                 </h3>
@@ -238,4 +238,4 @@ const Accommodation: React.FC = () => {
   );
 };
 
-export default Accommodation; 
+export default Accommodation;

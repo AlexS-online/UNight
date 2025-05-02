@@ -6,7 +6,6 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 import { colors } from '@/styles/colors';
 import Logo from '@/components/Logo/Logo';
-import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -56,7 +55,7 @@ const Header: React.FC = () => {
   };
 
   // Получаем текущий цвет фона для шапки
-  const headerBgColor = theme === 'terracotta' 
+  const headerBgColor = theme === 'terracotta'
     ? `${headerColors[theme].bg}95`
     : `${headerColors[theme].bg}80`;
 
@@ -104,19 +103,19 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Logo />
-          
-          <nav className="hidden md:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
+
+          <nav className="hidden lg:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
             {navItems.map((item) => (
               <motion.div
                 key={item}
                 {...menuItemAnimation}
               >
-                <Link 
-                  href={`#${item}`} 
+                <Link
+                  href={`#${item}`}
                   className={`text-xs tracking-wide relative px-3 py-1.5 rounded-md transition-colors duration-200 ${
                     theme === 'terracotta' ? 'drop-shadow-sm hover:drop-shadow-md' : ''
                   }`}
-                  style={{ 
+                  style={{
                     color: activeSection === item ? headerColors[theme].active : headerColors[theme].text,
                     opacity: activeSection === item ? 1 : 0.85,
                     backgroundColor: activeSection === item ? headerColors[theme].activeBg : 'transparent',
@@ -130,7 +129,6 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
             <LanguageToggle />
             <button
               ref={menuButtonRef}
@@ -168,7 +166,7 @@ const Header: React.FC = () => {
             >
               <div className="py-4 space-y-1">
                 {navItems.map((item) => (
-                  <motion.div 
+                  <motion.div
                     key={item}
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -179,7 +177,7 @@ const Header: React.FC = () => {
                       className={`block py-2 px-4 text-center text-sm rounded-md transition-colors duration-200 ${
                         theme === 'terracotta' ? 'drop-shadow-sm hover:drop-shadow-md' : ''
                       }`}
-                      style={{ 
+                      style={{
                         color: activeSection === item ? headerColors[theme].active : headerColors[theme].text,
                         opacity: activeSection === item ? 1 : 0.85,
                         backgroundColor: activeSection === item ? headerColors[theme].activeBg : 'transparent',

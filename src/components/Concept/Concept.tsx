@@ -17,11 +17,11 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     y: 10,
   },
-  visible: { 
+  visible: {
     opacity: 1,
     y: 0,
     transition: {
@@ -102,13 +102,13 @@ const Concept: React.FC = () => {
   const currentColors = useMemo(() => conceptColors[theme], [theme, conceptColors]);
 
   return (
-    <section 
-      id="concept" 
+    <section
+      id="concept"
       className="py-16 sm:py-24 md:py-32"
       style={{ backgroundColor: 'transparent' }}
     >
       <div className="container mx-auto px-3 sm:px-4">
-        <motion.div 
+        <motion.div
           className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
@@ -116,18 +116,18 @@ const Concept: React.FC = () => {
           viewport={{ once: true, margin: "-50px" }}
         >
           {concepts.map((item) => (
-            <motion.div 
+            <motion.div
               key={item.key}
               variants={cardVariants}
               whileHover="hover"
-              className="group p-5 sm:p-6 md:p-8 rounded-2xl shadow-lg hover:shadow-xl text-center flex flex-col h-full bg-white/10 backdrop-blur-md"
-              style={{ 
+              className="group p-5 sm:p-4 md:p-4 rounded-2xl shadow-lg hover:shadow-xl text-center flex flex-col h-full bg-white/10 backdrop-blur-md"
+              style={{
                 borderBottom: `3px solid ${currentColors.accent}`
               }}
             >
-              <div 
+              <div
                 className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mx-auto mb-4 sm:mb-6 rounded-full flex items-center justify-center"
-                style={{ 
+                style={{
                   color: currentColors.accent,
                   backgroundColor: currentColors.bg,
                   boxShadow: `0 0 0 4px ${currentColors.accent}`
@@ -137,19 +137,19 @@ const Concept: React.FC = () => {
                   initial={{ rotate: 0 }}
                   whileHover={{ rotate: 5 }}
                   transition={{ duration: 0.2 }}
-                  className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
+                  className="sm:w-7 sm:h-7 md:w-8 md:h-8"
                 >
                   {item.icon}
                 </motion.div>
               </div>
-              
-              <h3 
-                className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-4"
+
+              <h3
+                className="text-xl sm:text-l font-semibold mb-2 sm:mb-4"
                 style={{ color: currentColors.text }}
               >
                 {t(`concept.items.${item.key}.title`)}
               </h3>
-              <p 
+              <p
                 className="text-sm sm:text-base flex-grow mb-4 sm:mb-6"
                 style={{ color: currentColors.text }}
               >
@@ -163,4 +163,4 @@ const Concept: React.FC = () => {
   );
 };
 
-export default Concept; 
+export default Concept;

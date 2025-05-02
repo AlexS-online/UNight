@@ -66,10 +66,10 @@ const LanguageToggle: React.FC = () => {
         active: '#0000FF',
       },
       dark: {
-        bg: 'rgba(208, 90, 69, 0.1)',
+        bg: 'rgba(208, 90, 69, 0.6)',
         text: '#FFFFFF',
         hover: 'rgba(208, 90, 69, 0.2)',
-        active: '#D05A45',
+        active: 'rgba(208, 90, 69, 0.8)',
       },
       terracotta: {
         bg: 'rgba(255, 255, 255, 0.1)',
@@ -140,9 +140,9 @@ const LanguageToggle: React.FC = () => {
                 className={`w-full px-4 py-2 text-left text-sm transition-colors duration-200 ${
                   language === lang.code ? 'font-medium' : ''
                 }`}
-                style={{ 
-                  color: language === lang.code ? currentColors.active : currentColors.text,
-                  backgroundColor: language === lang.code ? `${currentColors.bg}80` : 'transparent',
+                style={{
+                  color: currentColors.text,
+                  backgroundColor: language === lang.code ? currentColors.active : 'transparent',
                 }}
                 role="menuitem"
               >
@@ -156,4 +156,4 @@ const LanguageToggle: React.FC = () => {
   );
 };
 
-export default LanguageToggle; 
+export default LanguageToggle;
